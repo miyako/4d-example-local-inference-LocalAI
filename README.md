@@ -8,7 +8,7 @@ Use LocalAI from 4D
 ## List Models
 
 ```4d
-var $LocalAI : cs.models
+var $LocalAI : cs.LocalAI.models
 $LocalAI:=cs.models.new()
 
 var $models : Collection
@@ -18,7 +18,7 @@ $models:=$LocalAI.list()
 ## List Backends
 
 ```4d
-var $LocalAI : cs.backends
+var $LocalAI : cs.LocalAI.backends
 $LocalAI:=cs.backends.new()
 
 var $backends : Collection
@@ -37,8 +37,8 @@ Case of
 		
 	Else 
 		
-		var $LocalAI : cs.models
-		$LocalAI:=cs.models.new()
+		var $LocalAI : cs.LocalAI.models
+		$LocalAI:=cs.LocalAI.models.new()
 		
 		/*
 			models_path: mandatory
@@ -72,8 +72,8 @@ Case of
 		
 	Else 
 		
-		var $LocalAI : cs.backends
-		$LocalAI:=cs.backends.new()
+		var $LocalAI : cs.LocalAI.backends
+		$LocalAI:=cs.LocalAI.backends.new()
 		
 		/*
 			backends_path: mandatory
@@ -102,4 +102,34 @@ Case of
 		$LocalAI.install($backends; Formula(onInstall))
 		
 End case 
+```
+
+## Start
+
+```4d
+var $LocalAI : cs.LocalAI.server
+$LocalAI:=cs.LocalAI.server.new()
+
+$isRunning:=$LocalAI.isRunning()
+
+/*
+	mandatory
+	models_path,backends_path
+*/
+
+$LocalAI.run({\
+models_path: Folder(fk desktop folder).folder("models"); \
+backends_path: Folder(fk desktop folder).folder("backends"); \
+disable_web_ui: False; \
+address: "127.0.0.1:8080"; \
+threads: 4; \
+context_size: 2048})
+```
+
+## Terminate
+
+```4d
+var $LocalAI : cs.LocalAI.server
+$LocalAI:=cs.LocalAI.server.new()
+$LocalAI.terminate()
 ```
