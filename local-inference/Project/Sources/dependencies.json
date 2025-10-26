@@ -1,0 +1,13 @@
+{
+	"version": 2100,
+	"dependencies": {
+		"4D AIKit": {
+			"github": "4d/4D-AIKit",
+			"version": "latest"
+		},
+		"LocalAI": {
+			"github": "miyako/LocalAI",
+			"version": "latest"
+		}
+	}
+}

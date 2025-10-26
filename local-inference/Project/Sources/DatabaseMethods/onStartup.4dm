@@ -1,0 +1,1 @@
+TEST_LocalAI_models_install
