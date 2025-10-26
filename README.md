@@ -4,3 +4,102 @@
 
 # 4d-example-local-inference-LocalAI
 Use LocalAI from 4D
+
+## List Models
+
+```4d
+var $LocalAI : cs.models
+$LocalAI:=cs.models.new()
+
+var $models : Collection
+$models:=$LocalAI.list()
+```
+
+## List Backends
+
+```4d
+var $LocalAI : cs.backends
+$LocalAI:=cs.backends.new()
+
+var $backends : Collection
+$backends:=$LocalAI.list()
+```
+
+## Install Model
+
+```4d
+#DECLARE($params : Object)
+
+Case of 
+	: (Count parameters=0)
+		
+		CALL WORKER(1; Current method name; {})
+		
+	Else 
+		
+		var $LocalAI : cs.models
+		$LocalAI:=cs.models.new()
+		
+		/*
+			models_path: mandatory
+			model: name of model to install
+			data : string passed to callback in $2.content 
+			pass a subclass of _LocalAI_Controller to cs.models.new() above 
+			to process onData, onDataError, etc.
+		*/
+		
+		var $models : Collection
+		$models:=[]
+		$models.push({\
+		model: "localai@nomic-embed-text-v1.5"; \
+		data: "installed nomic-embed-text-v1.5"; \
+		models_path: Folder(fk desktop folder).folder("models")})
+		
+		$LocalAI.install($models; Formula(onInstall))
+		
+End case 
+```
+
+## Install Backend
+
+```4d
+#DECLARE($params : Object)
+
+Case of 
+	: (Count parameters=0)
+		
+		CALL WORKER(1; Current method name; {})
+		
+	Else 
+		
+		var $LocalAI : cs.backends
+		$LocalAI:=cs.backends.new()
+		
+		/*
+			backends_path: mandatory
+			backend: name of backend to install
+			data : string passed to callback in $2.content 
+			pass a subclass of _LocalAI_Controller to cs.backends.new() above 
+			to process onData, onDataError, etc.
+		*/
+		
+		var $backends : Collection
+		$backends:=[]
+		
+		Case of 
+			: (Is macOS) && (Not(Get system info.macRosetta))
+				$backends.push({\
+				backend: "localai@metal-llama-cpp"; \
+				data: "installed metal-llama-cpp"; \
+				backends_path: Folder(fk desktop folder).folder("backends")})
+			Else 
+				$backends.push({\
+				backend: "localai@cpu-llama-cpp"; \
+				data: "installed cpu-llama-cpp"; \
+				backends_path: Folder(fk desktop folder).folder("backends")})
+		End case 
+		
+		$LocalAI.install($backends; Formula(onInstall))
+		
+End case 
+```
