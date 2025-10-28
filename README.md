@@ -122,7 +122,7 @@ $isRunning:=$LocalAI.isRunning()
 	models_path,backends_path
 */
 
-$LocalAI.run({\
+$LocalAI.start({\
 models_path: Folder(fk desktop folder).folder("models"); \
 backends_path: Folder(fk desktop folder).folder("backends"); \
 disable_web_ui: False; \
