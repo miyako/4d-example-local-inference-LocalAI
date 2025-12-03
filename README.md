@@ -5,7 +5,7 @@
 # 4d-example-local-inference-LocalAI
 Use LocalAI from 4D
 
-[dependencies](https://github.com/miyako/4d-example-local-inference/blob/main/local-inference/Project/Sources/dependencies.json)
+[dependencies](https://github.com/miyako/4d-example-local-inference-LocalAI/blob/main/local-inference/Project/Sources/dependencies.json)
 
 * [`miyako/LocalAI`](https://github.com/miyako/LocalAI)
 * [`4d/4D-AIKit`](https://github.com/4d/4D-AIKit)
